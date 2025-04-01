@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Libros</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+    <style>
+        .btn-rosa {
+            background-color: #d61b1b;  
+            color: white;
+        }
+        .btn-rosa:hover {
+            background-color: #cc3265;  
+            color: white;
+        }
+        .btn-verde {
+            background-color: #211529; 
+            color: white;
+        }
+        .btn-verde:hover {
+            background-color: #9d76bd; 
+            color: white;
+        }
+        .btn-azul {
+            background-color: #193277; 
+            color: white;
+        }
+        .btn-azul:hover {
+            background-color: #135da7;  
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container mt-4">
+        <div class="card shadow-lg bg-secondary text-white">
+            <div class="card-header bg-dark text-white">
+                <h3 class="text-center">Lista de Libros</h3>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-dark table-hover text-center">
+                        <thead class="table-secondary text-dark">
+                            <tr>
+                                <th>Tiitulo</th>
+                                <th>Autor</th>
+                                <th>Genero</th>
+                                <th>Año</th>
+                                <th>Edicion</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% libros.forEach(function(libro) { %> 
+                                <tr>
+                                    <td><%= libro.titulo %></td>
+                                    <td><%= libro.autor %></td>
+                                    <td><%= libro.genero %></td>
+                                    <td><%= libro.anio %></td>
+                                    <td class="text-center">
+                                        <a href="/libros/<%= libro.id %>/editar" class="btn btn-azul btn-sm me-2">
+                                            <i class="bi bi-pencil-fill"></i> Editar
+                                        </a>
+                                        
+                                        <button class="btn btn-rosa btn-sm" data-bs-toggle="modal" data-bs-target="#confirmarEliminarModal<%= libro.id %>">
+                                            <i class="bi bi-trash-fill"></i> Eliminar
+                                        </button>
+
+                                        <div class="modal fade" id="confirmarEliminarModal<%= libro.id %>" tabindex="-1" aria-labelledby="confirmarEliminarLabel<%= libro.id %>" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="confirmarEliminarLabel<%= libro.id %>">Confirmar Eliminacion</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                       ¿Estas segurisimo de que deseas eliminar este libro?
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                        <form action="/libros/<%= libro.id %>/eliminar" method="POST">
+                                                            <button type="submit" class="btn btn-danger">Confirmar Eliminación</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <% }); %> 
+                        </tbody>
+                    </table>
+                </div>
+                <div class="text-center mt-3">
+                    <a href="/libros/crear" class="btn btn-verde btn-lg">
+                        <i class="bi bi-plus-circle"></i> Crear Nuevo Libro
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+
