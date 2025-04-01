@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado de Libros</title>
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-4">
+        <h1 class="text-center mb-4">Listado de Libros</h1>
+        
+        <table class="table table-bordered table-striped" id="librosTable">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Título</th>
+                    <th>Autor</th>
+                    <th>Género</th>  
+                    <th>Año</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+            </tbody>
+        </table>
+        
+        <a href="/libros/crear" class="btn btn-dark"> Crear Nuevo Libro</a>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    <script>
+        const libros = [
+            { id: 1, titulo: "Cien años de soledad", autor: "Gabriel García Márquez", genero: "Drama", anio: 1967 },
+            { id: 2, titulo: "Crimen y castigo", autor: "Fiódor Dostoyevski", genero: "Suspenso", anio: 1866 },
+            { id: 3, titulo: "En la mente de un gato", autor: "Bob", genero: "Suspenso", anio: 1949 }
+        ];
+
+        function cargarLibros() {
+            const tableBody = document.getElementById("tableBody");
+            libros.forEach(libro => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${libro.titulo}</td>
+                    <td>${libro.autor}</td>
+                    <td>${libro.genero}</td>
+                    <td>${libro.anio}</td>
+                    <td>
+                        <a href="/libros/${libro.id}/editar" class="btn btn-secondary btn-sm">Editar</a>
+                        <form action="/libros/${libro.id}/eliminar" method="POST" style="display: inline;">
+                            <button type="submit" class="btn btn-dark btn-sm">Eliminar</button>
+                        </form>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        window.onload = cargarLibros;
+    </script>
+</body>
+</html>
